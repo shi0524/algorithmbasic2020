@@ -3,18 +3,14 @@ import random
 
 
 class HeapGreater(object):
-    def __init__(self, limit, cmpFunc=cmp):
+    def __init__(self, cmpFunc=cmp):
         self.size = 0
         self.cmp = cmpFunc
-        self.limit = limit
-        self.heap = [0] * limit
+        self.heap = []
         self.map = {}
 
     def isEmpty(self):
         return self.size == 0
-
-    def isFull(self):
-        return self.size == self.limit
 
     def containts(self, obj):
         return obj in self.map
@@ -23,11 +19,9 @@ class HeapGreater(object):
         return self.heap[0]
 
     def push(self, value):
-        if self.isFull():
-            raise RuntimeError("heap is full !!!")
         if self.containts(value):
             return
-        self.heap[self.size] = value
+        self.heap.append(value)
         self.map[value] = self.size
         self.heap_insert(self.size)
         self.size += 1
@@ -84,8 +78,10 @@ class HeapGreater(object):
 
 
 if __name__ == "__main__":
-    lst = [13, 4, 10, 11, 2, 7, 3, 1, 8, 5, 9, 6, 12, 14, 15]
-    h = HeapGreater(15)
+    # lst = [13, 4, 10, 11, 2, 7, 3, 1, 8, 5, 9, 6, 12, 14, 15]
+    lst = range(100000)
+    random.shuffle(lst)
+    h = HeapGreater()
     for i in lst:
         h.push(i)
     while h.size:
