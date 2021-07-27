@@ -33,6 +33,7 @@ class HeapGreater(object):
         self.swap(0, self.size)
         self.heapify(0)
         ans = self.heap[self.size]
+        self.heap.pop()
         self.map.pop(ans)
         return ans
 
@@ -42,6 +43,7 @@ class HeapGreater(object):
         self.size -= 1
         replace = self.heap[self.size]
         pos = self.map.pop(value)
+        self.heap.pop()
         if value != replace:
             self.heap[pos] = replace
             self.map[replace] = pos
@@ -69,6 +71,9 @@ class HeapGreater(object):
     def resign(self, value):
         self.heapify(self.map[value])
         self.heap_insert(self.map[value])
+
+    def getAllElements(self):
+        return self.heap[::]
 
     def swap(self, i, j):
         arr = self.heap
